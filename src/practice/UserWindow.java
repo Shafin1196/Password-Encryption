@@ -249,6 +249,11 @@ public class UserWindow extends javax.swing.JFrame {
         ProfileMenu.setBorderPainted(false);
         ProfileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ProfileMenu.setFocusPainted(true);
+        ProfileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProfileMenuActionPerformed(evt);
+            }
+        });
 
         profileMenuBtn.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
         profileMenuBtn.setText("Profile");
@@ -500,6 +505,10 @@ public class UserWindow extends javax.swing.JFrame {
         AllPassword seeWebAndPass=new AllPassword(user);
         seeWebAndPass.setVisible(true);
     }//GEN-LAST:event_seeAllPassMenuActionPerformed
+
+    private void ProfileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProfileMenuActionPerformed
 
     /**
      * @param args the command line arguments

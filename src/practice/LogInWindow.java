@@ -258,7 +258,7 @@ public class LogInWindow extends javax.swing.JFrame {
                         user.addDp(convertToImage(rs.getBytes("img")));
                         }
                         this.dispose();
-                        UserWindow window = new UserWindow(user);
+                        AllPassword window = new AllPassword(user);
                         window.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Password  is incorrect!");

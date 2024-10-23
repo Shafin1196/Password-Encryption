@@ -28,6 +28,7 @@ public class CreateNew extends javax.swing.JFrame {
     private ImageIcon icon;
     public CreateNew() {
         setIcon();
+        setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Create new account");

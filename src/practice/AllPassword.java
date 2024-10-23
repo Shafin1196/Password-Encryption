@@ -18,7 +18,6 @@ public class AllPassword extends javax.swing.JFrame {
     private ImageIcon icon;
     public AllPassword(User user) {
         setResizable(false);
-        setResizable(false);
         this.user=user;
         setIcon();
         setLocationRelativeTo(null);
@@ -146,11 +145,15 @@ public class AllPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuBtnActionPerformed
-
+         this.dispose();
+         UserWindow window=new UserWindow(user);
+         window.setVisible(true);
     }//GEN-LAST:event_profileMenuBtnActionPerformed
 
     private void addPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassMenuActionPerformed
-
+         AddPassword addWindow=new AddPassword(user);
+         addWindow.setVisible(true);
+         initData();
     }//GEN-LAST:event_addPassMenuActionPerformed
 
     private void logOutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutMenuActionPerformed
