@@ -45,7 +45,7 @@ public class DatabaseConnection {
         Connection con=null;
         try {
             con=DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
-            con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS userdetails (userName varchar(50),fullName varchar(50),email varchar(100),password varchar(100),mobile varchar(11),image blob )");
+            con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS userdetails (userName varchar(50),fullName varchar(50),email varchar(100),password varchar(100),mobile varchar(11),img blob )");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }finally{

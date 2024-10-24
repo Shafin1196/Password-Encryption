@@ -151,7 +151,7 @@ public class AllPassword extends javax.swing.JFrame {
     private void addPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassMenuActionPerformed
         AddPassword addWindow = new AddPassword(user);
         addWindow.setVisible(true);
-        initData();
+//        initData();
     }//GEN-LAST:event_addPassMenuActionPerformed
 
     private void logOutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutMenuActionPerformed
