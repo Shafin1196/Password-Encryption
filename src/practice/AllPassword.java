@@ -1,4 +1,3 @@
-
 package practice;
 
 import java.awt.Dimension;
@@ -8,7 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
 public class AllPassword extends javax.swing.JFrame {
 
     /**
@@ -16,9 +14,10 @@ public class AllPassword extends javax.swing.JFrame {
      */
     private User user;
     private ImageIcon icon;
+
     public AllPassword(User user) {
         setResizable(false);
-        this.user=user;
+        this.user = user;
         setIcon();
         setLocationRelativeTo(null);
         setLocations();
@@ -27,39 +26,38 @@ public class AllPassword extends javax.swing.JFrame {
         initData();
         setSize(675, 500);
     }
-    public void setLocations()
-    {
+
+    public void setLocations() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 675)/2 ;
-        int y = (screenSize.height - 500)/2;
+        int x = (screenSize.width - 675) / 2;
+        int y = (screenSize.height - 500) / 2;
         setLocation(x, y);
-        
+
     }
-    public void setIcon(){
-        icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
+
+    public void setIcon() {
+        icon = new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());
     }
-    public void initData()
-    {
-        
-        String[] column={"Website name","Passwords"};
-        DefaultTableModel tableModel=new DefaultTableModel(column,0);
-        JTable table=new JTable(tableModel);
-        for(PasswordAndWeb data:user.getList()){
-            String website,password;
-            website=data.getWeb();
-            password=data.getPass();
-            tableModel.addRow(new Object[]{website,password});
+
+    public void initData() {
+
+        String[] column = {"Website name", "Passwords"};
+        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
+        JTable table = new JTable(tableModel);
+        for (PasswordAndWeb data : user.getList()) {
+            String website, password;
+            website = data.getWeb();
+            password = data.getPass();
+            tableModel.addRow(new Object[]{website, password});
         }
-        JScrollPane sp=new JScrollPane(table);
-        getContentPane().setLayout(new java.awt.BorderLayout()); // Set layout to BorderLayout
-    getContentPane().add(sp, java.awt.BorderLayout.CENTER); // Add scroll pane to center
-    
-    // Call pack to fit the components in the frame
-    pack();
-         this.revalidate();
-    this.repaint();
-        
+        JScrollPane sp = new JScrollPane(table);
+        getContentPane().setLayout(new java.awt.BorderLayout());
+        getContentPane().add(sp, java.awt.BorderLayout.CENTER);
+        pack();
+        this.revalidate();
+        this.repaint();
+
     }
 
     /**
@@ -145,15 +143,15 @@ public class AllPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuBtnActionPerformed
-         this.dispose();
-         UserWindow window=new UserWindow(user);
-         window.setVisible(true);
+        this.dispose();
+        UserWindow window = new UserWindow(user);
+        window.setVisible(true);
     }//GEN-LAST:event_profileMenuBtnActionPerformed
 
     private void addPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassMenuActionPerformed
-         AddPassword addWindow=new AddPassword(user);
-         addWindow.setVisible(true);
-         initData();
+        AddPassword addWindow = new AddPassword(user);
+        addWindow.setVisible(true);
+        initData();
     }//GEN-LAST:event_addPassMenuActionPerformed
 
     private void logOutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutMenuActionPerformed

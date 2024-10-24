@@ -32,6 +32,9 @@ public class LogInWindow extends javax.swing.JFrame {
      */
     private ImageIcon icon;
     public LogInWindow() {
+        DatabaseConnection db=new DatabaseConnection();
+        db.createDataBase();
+        db.createTable();
         setResizable(false);
         setIcon();
         initComponents();

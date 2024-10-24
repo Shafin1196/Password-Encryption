@@ -1,4 +1,3 @@
-
 package practice;
 
 import java.io.IOException;
@@ -10,52 +9,90 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 public class DatabaseConnection {
+
     private User user;
-    DatabaseConnection(User user)
-    {
-        this.user=user;
+
+    DatabaseConnection(User user) {
+        this.user = user;
     }
-    DatabaseConnection()
-    {
-        
+
+    DatabaseConnection() {
+
     }
-    public Connection getConnection()
-    {
+
+    public void createDataBase() {
+        Connection con = null;
+
         try {
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager","root","rsr554433");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "rsr554433");
+            con.createStatement().executeUpdate("CREATE DATABASE IF NOT EXISTS passwordmanager");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try{
+                if(con!=null)con.close();
+            }catch(SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+    public void createTable(){
+        Connection con=null;
+        try {
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
+            con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS userdetails (userName varchar(50),fullName varchar(50),email varchar(100),password varchar(100),mobile varchar(11),image blob )");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try{
+                if(con!=null)con.close();
+            }catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+
+    public Connection getConnection() {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
             return con;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
+
     }
-    public void getPasswords()
-    {
-        Connection con=getConnection();
+
+    public void getPasswords() {
+        Connection con = getConnection();
         PreparedStatement ps;
-        
+
         try {
-            
-            ps = con.prepareStatement("select * from "+user.getUserHandel());
-            ResultSet rs=ps.executeQuery();
-            while(rs.next()){
-                PasswordAndWeb data=new PasswordAndWeb(rs.getString("password"),rs.getString("website"));
+
+            ps = con.prepareStatement("select * from " + user.getUserHandel());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PasswordAndWeb data = new PasswordAndWeb(rs.getString("password"), rs.getString("website"));
                 user.addPassToList(data);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    public void addPasswordToDb()
-    {   Connection con=getConnection();
+
+    public void addPasswordToDb() {
+        Connection con = getConnection();
         try {
-            PreparedStatement ps=con.prepareStatement("insert into "+user.getUserHandel()+" values(?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into " + user.getUserHandel() + " values(?,?)");
             ps.setString(1, user.getData().getWeb());
-            ps.setString(2,user.getData().getPass());
+            ps.setString(2, user.getData().getPass());
             ps.executeUpdate();
             ps.close();
             con.close();
@@ -63,55 +100,55 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void createUserDetailsTable()
-    {
-        
+
+    public void createUserDetailsTable() {
+
     }
-    public boolean addNewUserToDb(){
+
+    public boolean addNewUserToDb() {
         try {
-                
-                Connection con = getConnection();
-                
-                
-                PreparedStatement ps = con.prepareStatement("select userName from userdetails where userName= ?");
 
-                ps.setString(1, user.getUserHandel());
-                
-                ResultSet rs = ps.executeQuery();
-                try {
-                    if (rs.next()) {
-                        
-                        JOptionPane.showMessageDialog(null, user.getUserHandel() + " is already used try another!");
-                        return false;
-                    } else {
-                        ps = con.prepareStatement("insert into userDetails(userName,fullName,password,email,mobile)" + "values(?,?,?,?,?)");
-                        ps.setString(1, user.getUserHandel());
-                        ps.setString(2, user.getName());
-                        ps.setString(3, user.getHandelPass());
-                        ps.setString(4, user.getEmail());
-                        ps.setString(5, user.getMobile());
-                        ps.executeUpdate();
-                        ps = con.prepareStatement("create table "+user.getUserHandel()+ "(website varchar(100),password varchar(100))");
-                        ps.executeUpdate();
-                        ps.close();
-                        con.close();
-                        return true;
-                    }
+            Connection con = getConnection();
 
-                } catch (SQLException ex) {
-                    // Log the exception to see what went wrong
+            PreparedStatement ps = con.prepareStatement("select userName from userdetails where userName= ?");
+
+            ps.setString(1, user.getUserHandel());
+
+            ResultSet rs = ps.executeQuery();
+            try {
+                if (rs.next()) {
+
+                    JOptionPane.showMessageDialog(null, user.getUserHandel() + " is already used try another!");
                     return false;
-                    
+                } else {
+                    ps = con.prepareStatement("insert into userDetails(userName,fullName,password,email,mobile)" + "values(?,?,?,?,?)");
+                    ps.setString(1, user.getUserHandel());
+                    ps.setString(2, user.getName());
+                    ps.setString(3, user.getHandelPass());
+                    ps.setString(4, user.getEmail());
+                    ps.setString(5, user.getMobile());
+                    ps.executeUpdate();
+                    ps = con.prepareStatement("create table " + user.getUserHandel() + "(website varchar(100),password varchar(100))");
+                    ps.executeUpdate();
+                    ps.close();
+                    con.close();
+                    return true;
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(CreateNew.class.getName()).log(Level.SEVERE, null, ex);
+                // Log the exception to see what went wrong
                 return false;
 
             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateNew.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        }
     }
-    public void updateUserData()
-    {
+
+    public void updateUserData() {
 //        Connection con = getConnection();
 //        if (user.getDp() != null) {
 //            try {
@@ -153,5 +190,5 @@ public class DatabaseConnection {
 //            
 //        }
     }
-    
+
 }
