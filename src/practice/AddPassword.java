@@ -94,13 +94,13 @@ public class AddPassword extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(addPass))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(websiteName, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                            .addComponent(password))))
+                            .addComponent(password)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(addPass, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -121,7 +121,7 @@ public class AddPassword extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
