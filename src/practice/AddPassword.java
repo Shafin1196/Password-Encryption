@@ -57,6 +57,8 @@ public class AddPassword extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+
         websiteName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         websiteName.setForeground(new java.awt.Color(153, 153, 153));
         websiteName.setText("Website name");
@@ -69,6 +71,7 @@ public class AddPassword extends javax.swing.JFrame {
             }
         });
 
+        addPass.setBackground(new java.awt.Color(204, 255, 204));
         addPass.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         addPass.setText("Add");
         addPass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -101,7 +104,7 @@ public class AddPassword extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(addPass, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,9 +122,7 @@ public class AddPassword extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
