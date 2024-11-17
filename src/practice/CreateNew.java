@@ -116,6 +116,11 @@ public class CreateNew extends javax.swing.JFrame {
                 passwordMouseClicked(evt);
             }
         });
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
 
         submitBtn.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
@@ -320,6 +325,10 @@ public boolean checkFieldNull()
     private void userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments

@@ -45,6 +45,10 @@ public class UserWindow extends javax.swing.JFrame {
         initComponents();
         initUserData();
     }
+
+    private UserWindow() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public void setIcon(){
         icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());

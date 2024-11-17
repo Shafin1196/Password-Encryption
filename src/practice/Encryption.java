@@ -22,35 +22,70 @@ public class Encryption {
 //        password.reverse();
 //    }
 
-    String hashed(String password) {
+//    String hashed(String password) {
+//        
+//        try {
+//            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+//            byte[] hashBytes = digest.digest(password.getBytes());
+//            return Base64.getEncoder().encodeToString(hashBytes);
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+//
+//    String encrypt() throws NoSuchAlgorithmException {
+//        return hashed(password);
+//    }
+
+    public static String passwordHash(String password){
         
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(password.getBytes());
-            return Base64.getEncoder().encodeToString(hashBytes);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        try{
+            
+                MessageDigest md = MassageDigest.getInstance("srse");
+            md.update(password.getBytes());
+            byte[] rbt = md.digest();
+            StringBuilder sb = new StringBuilder();
+            
+            for(byte b : rbt){
+                
+                sb.append(String.format("%02x", b));
+                
+                
+            }
+            return sb.toString();
+            
+            
+        }catch (Exception e){
+            
+            return null;
+            
         }
-
     }
-
-    String encrypt() throws NoSuchAlgorithmException {
-        return hashed(password);
-    }
-
+    
     
 
     public static void main(String[] args) {
         
-        String s;
-        try {
-            s = new Encryption("10772112").encrypt();
-            System.out.println(s);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String s;
+//        try {
+//            s = new Encryption("10772112").encrypt();
+//            System.out.println(s);
+//        } catch (NoSuchAlgorithmException ex) {
+//            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
 
+    }
+
+    private static class MassageDigest {
+
+        private static MessageDigest getInstance(String srse) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        public MassageDigest() {
+        }
     }
 
 }

@@ -29,6 +29,10 @@ public class AddPassword extends javax.swing.JFrame {
         setTitle("Add password");
         initComponents();
     }
+
+    private AddPassword() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public void setIcon(){
         icon=new ImageIcon(getClass().getResource("/practiceIcons/addPassword.png"));
         this.setIconImage(icon.getImage());

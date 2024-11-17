@@ -54,10 +54,10 @@ public class User {
     {
         passwordList.add(data);
     }
-    public PasswordAndWeb getData()
-    {
-        return passwordList.getLast();
-    }
+//    public PasswordAndWeb getData()
+//    {
+//        return passwordList.get();
+//    }
     
     public ArrayList<PasswordAndWeb> getList()
     {
@@ -86,5 +86,9 @@ public class User {
         User user=new User("sds","dsada","dasdsa","dsad","dsadsa");
         System.out.println(user.getPass());
     }
+
+//    Object getData() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
 }
