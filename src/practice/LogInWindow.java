@@ -49,7 +49,7 @@ public class LogInWindow extends javax.swing.JFrame {
     public Connection getConnection() {
         Connection con = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "##JABVIH18A##");
             //            JOptionPane.showMessageDialog(null, "not connected");
             return con;
         } catch (SQLException ex) {

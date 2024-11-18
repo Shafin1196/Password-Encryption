@@ -71,6 +71,8 @@ public class CreateNew extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jDesktopPane1.setBackground(new java.awt.Color(255, 204, 204));
+
         fullName.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         fullName.setForeground(new java.awt.Color(153, 153, 153));
         fullName.setText("Full name");
@@ -117,6 +119,7 @@ public class CreateNew extends javax.swing.JFrame {
             }
         });
 
+        submitBtn.setBackground(new java.awt.Color(153, 255, 153));
         submitBtn.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +128,7 @@ public class CreateNew extends javax.swing.JFrame {
             }
         });
 
+        logInBtn.setBackground(new java.awt.Color(153, 255, 153));
         logInBtn.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         logInBtn.setText("Log In");
         logInBtn.addActionListener(new java.awt.event.ActionListener() {
