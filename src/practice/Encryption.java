@@ -63,7 +63,10 @@ public class Encryption {
         }
     }
     
-    
+//    private String encryptPassword(String password, List<Integer>key){
+//        StringBuilder encrypted = new StringBuilder(password);
+//        
+//    }
 
     public static void main(String[] args) {
         
@@ -85,6 +88,12 @@ public class Encryption {
         }
 
         public MassageDigest() {
+        }
+    }
+
+    private static class List<T> {
+
+        public List() {
         }
     }
 
