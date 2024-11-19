@@ -64,7 +64,7 @@ public class UserWindow extends javax.swing.JFrame {
     public Connection getConnection() {
         Connection con = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
+              con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
             //            JOptionPane.showMessageDialog(null, "not connected");
             return con;
         } catch (SQLException ex) {
