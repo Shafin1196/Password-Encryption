@@ -2,7 +2,7 @@
 package practice;
 import javax.swing.ImageIcon;
 import java.util.*;
-public class User {
+public class User extends Encryption {
     private String name,password,mobile,userName,email;
     private ImageIcon dp;
     private ArrayList<PasswordAndWeb>passwordList=new ArrayList<>();
@@ -54,10 +54,10 @@ public class User {
     {
         passwordList.add(data);
     }
-//    public PasswordAndWeb getData()
-//    {
-//        return passwordList.get();
-//    }
+    public PasswordAndWeb getData()
+    {
+        return passwordList.get(passwordList.size()-1);
+    }
     
     public ArrayList<PasswordAndWeb> getList()
     {
