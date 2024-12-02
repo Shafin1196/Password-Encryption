@@ -46,6 +46,12 @@ public class Encryption {
         return new String(decryptedBytes);
     }
 
+    public String hash(String data, String algorithm)throws NoSuchAlgorithmException{
+        MessageDigest digest= MessageDigest.getInstance(algorithm);
+        byte[] hashBytes=digest.digest(data.getBytes());
+        return encode(hashBytes);
+        
+    }
     private static String encode(byte[] data) {
         return Base64.getEncoder().encodeToString(data);
     }
@@ -65,6 +71,9 @@ public class Encryption {
 
             System.out.println("Encrypted: " + encryptedPassword);
             System.out.println("Decrypted: " + decryptedPassword);
+            
+            String sha256Hash= encryption.hash(password, "SHA-256");
+            System.out.println("SHA-256 Hash: "+sha256Hash);
         } catch (Exception e) {
             e.printStackTrace();
         }
