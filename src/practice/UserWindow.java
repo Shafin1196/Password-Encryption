@@ -37,38 +37,27 @@ public class UserWindow extends javax.swing.JFrame {
      */
     User user = new User();
     private ImageIcon icon;
+
     public UserWindow(User user) {
         setIcon();
+        setResizable(false);
         this.user = user;
         setTitle("Passwor Manager");
         setLocations();
         initComponents();
         initUserData();
     }
-    public void setIcon(){
-        icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
+
+    public void setIcon() {
+        icon = new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());
     }
-    public void setLocations()
-    {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 683)/2 ;
-        int y = (screenSize.height - 500)/2;
-        setLocation(x, y);
-        
-    }
-    public Connection getConnection() {
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
-            //            JOptionPane.showMessageDialog(null, "not connected");
-            return con;
-        } catch (SQLException ex) {
-            Logger.getLogger(LogInWindow.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(null, "not connected");
-            return null;
 
-        }
+    public void setLocations() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - 683) / 2;
+        int y = (screenSize.height - 500) / 2;
+        setLocation(x, y);
 
     }
 
@@ -324,27 +313,8 @@ public class UserWindow extends javax.swing.JFrame {
         if (user.getDp() != null) {
             dp.setIcon(user.getDp());
 
-        } 
+        }
 
-    }
-    
-    public byte[] convertToByte(ImageIcon icon) throws IOException {
-        // Convert ImageIcon to Image
-        Image image = icon.getImage();
-
-        // Convert Image to BufferedImage
-        BufferedImage bufferedImage = new BufferedImage(
-                image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-        // Draw the image on the buffered image
-        bufferedImage.getGraphics().drawImage(image, 0, 0, null);
-
-        // Convert BufferedImage to ByteArrayOutputStream
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", baos);  // You can change "png" to other formats like "jpg"
-
-        // Convert ByteArrayOutputStream to byte array
-        return baos.toByteArray();
     }
     private void dpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dpMouseClicked
         JFileChooser file = new JFileChooser();
@@ -422,7 +392,7 @@ public class UserWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutMenuActionPerformed
 
     private void profileMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuBtnActionPerformed
-        
+
     }//GEN-LAST:event_profileMenuBtnActionPerformed
 
     private void userNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMouseClicked
@@ -441,54 +411,13 @@ public class UserWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_userNameActionPerformed
 
     private void saveProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProfileBtnActionPerformed
-        
-        Connection con = getConnection();
         user.setName(fullName.getText());
         user.setEmail(email.getText());
         user.setMobile(mobile.getText());
         user.setPass(password.getText());
-        
-        if (user.getDp() != null) {
-            try {
-                PreparedStatement ps = con.prepareStatement("update userdetails set fullName=?,mobile=?,email=?,password=?,img=? where userName=?");
-                ps.setString(6, user.getUserHandel());
-                ps.setString(1, fullName.getText());
-                ps.setString(2, mobile.getText());
-                ps.setString(3, email.getText());
-                ps.setString(4, password.getText());
-                
-                try {
-                    ps.setBytes(5, convertToByte(user.getDp()));
-                } catch (IOException ex) {
-                    Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                ps.executeUpdate();
-                ps.close();
-                con.close();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        else{
-            try {
-                PreparedStatement ps = con.prepareStatement("update userdetails set fullName=?,mobile=?,email=?,password=? where userName=?");
-                ps.setString(5, user.getUserHandel());
-                ps.setString(1, fullName.getText());
-                ps.setString(2, mobile.getText());
-                ps.setString(3, email.getText());
-                ps.setString(4, password.getText());
-                ps.executeUpdate();
-                ps.close();
-                con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            
-        }
-        UserWindow userWindow=new UserWindow(user);
+        DatabaseConnection db=new DatabaseConnection(user);
+        db.updateUserData();
+        UserWindow userWindow = new UserWindow(user);
         userWindow.setVisible(true);
         this.dispose();
 
@@ -496,13 +425,13 @@ public class UserWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_saveProfileBtnActionPerformed
 
     private void addPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassMenuActionPerformed
-        AddPassword addWindow=new AddPassword(user);
+        AddPassword addWindow = new AddPassword(user);
         addWindow.setVisible(true);
     }//GEN-LAST:event_addPassMenuActionPerformed
 
     private void seeAllPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeAllPassMenuActionPerformed
         this.dispose();
-        AllPassword seeWebAndPass=new AllPassword(user);
+        AllPassword seeWebAndPass = new AllPassword(user);
         seeWebAndPass.setVisible(true);
     }//GEN-LAST:event_seeAllPassMenuActionPerformed
 
