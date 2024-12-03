@@ -22,30 +22,30 @@ public class DatabaseConnection {
 
     }
 
-    public void createDataBase() {
-        Connection con = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "##JABVIH18A##");
-            con.createStatement().executeUpdate("CREATE DATABASE IF NOT EXISTS passwordmanager");
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            try{
-                if(con!=null)con.close();
-            }catch(SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }
+   //    public void createDataBase() {
+//        Connection con = null;
+//
+//        try {
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "rsr554433");
+//            con.createStatement().executeUpdate("CREATE DATABASE IF NOT EXISTS passwordmanager");
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        finally{
+//            try{
+//                if(con!=null)con.close();
+//            }catch(SQLException ex) {
+//            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//    }
     public void createTable(){
         Connection con=null;
         try {
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "##JABVIH18A##");
-            con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS userdetails (userName varchar(50),fullName varchar(50),email varchar(100),password varchar(100),mobile varchar(11),img blob )");
+                     con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
+            con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS userdetails (id INT AUTO_INCREMENT PRIMARY KEY,userName varchar(50),fullName varchar(50),email varchar(100),password varchar(100),mobile varchar(11),img blob )");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -59,7 +59,7 @@ public class DatabaseConnection {
 
     public Connection getConnection() {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "##JABVIH18A##");
+                       Connection con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
             return con;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,7 +90,7 @@ public class DatabaseConnection {
     public void addPasswordToDb() {
         Connection con = getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("insert into " + user.getUserHandel() + " values(?,?)");
+                     PreparedStatement ps = con.prepareStatement("insert into " + user.getUserHandel() + "(website,password) values(?,?)");
             ps.setString(1, user.getData().getWeb());
             ps.setString(2, user.getData().getPass());
             ps.executeUpdate();
@@ -121,14 +121,14 @@ public class DatabaseConnection {
                     JOptionPane.showMessageDialog(null, user.getUserHandel() + " is already used try another!");
                     return false;
                 } else {
-                    ps = con.prepareStatement("insert into userDetails(userName,fullName,password,email,mobile)" + "values(?,?,?,?,?)");
+                     ps = con.prepareStatement("insert into userdetails(userName,fullName,password,email,mobile)" + "values(?,?,?,?,?)");
                     ps.setString(1, user.getUserHandel());
                     ps.setString(2, user.getName());
                     ps.setString(3, user.getHandelPass());
                     ps.setString(4, user.getEmail());
                     ps.setString(5, user.getMobile());
                     ps.executeUpdate();
-                    ps = con.prepareStatement("create table " + user.getUserHandel() + "(website varchar(100),password varchar(100))");
+                                      ps = con.prepareStatement("create table " + user.getUserHandel() + "(id INT AUTO_INCREMENT PRIMARY KEY,website varchar(100),password varchar(100))");
                     ps.executeUpdate();
                     ps.close();
                     con.close();

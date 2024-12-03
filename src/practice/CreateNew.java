@@ -40,7 +40,7 @@ public class CreateNew extends javax.swing.JFrame {
     public Connection getConnection() {
         Connection con = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
+                        con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
 //            JOptionPane.showMessageDialog(null, "ok");
             return con;
         } catch (SQLException ex) {
@@ -79,6 +79,11 @@ public class CreateNew extends javax.swing.JFrame {
         fullName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fullNameMouseClicked(evt);
+            }
+        });
+        fullName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullNameActionPerformed(evt);
             }
         });
 
@@ -324,6 +329,10 @@ public boolean checkFieldNull()
     private void userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameActionPerformed
+
+    private void fullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fullNameActionPerformed
 
     /**
      * @param args the command line arguments
