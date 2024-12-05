@@ -33,7 +33,7 @@ public class LogInWindow extends javax.swing.JFrame {
     private ImageIcon icon;
     public LogInWindow() {
         DatabaseConnection db=new DatabaseConnection();
-        db.createDataBase();
+//        db.createDataBase();
         db.createTable();
         setResizable(false);
         setIcon();
@@ -45,20 +45,6 @@ public class LogInWindow extends javax.swing.JFrame {
     public void setIcon(){
         icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());
-    }
-    public Connection getConnection() {
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
-            //            JOptionPane.showMessageDialog(null, "not connected");
-            return con;
-        } catch (SQLException ex) {
-            Logger.getLogger(LogInWindow.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(null, "not connected");
-            return null;
-
-        }
-
     }
 
     /**
@@ -227,56 +213,16 @@ public class LogInWindow extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnCreateActionPerformed
-    //convert data base image
-    public ImageIcon convertToImage(byte[] imageBytes) {
-        try {
-            // Convert byte array to ByteArrayInputStream
-            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
-            
-            // Read the input stream as a BufferedImage
-            BufferedImage bufferedImage = ImageIO.read(bais);
-            
-            // Create and return an ImageIcon from the BufferedImage
-            return new ImageIcon(bufferedImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
     private void logInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInBtnActionPerformed
-        try {
-            Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("select * from userdetails where userName=?");
-            ps.setString(1, userField.getText());
-            ResultSet rs = ps.executeQuery();
-//            System.out.println(rs.getString("fullName"));
-            try {
-                if (rs.next()) {
-                    String dbPass = rs.getString("password");
-                    if (dbPass.equals(passwordField.getText())) {
-                        User user = new User(rs.getString("fullName"),rs.getString("userName"), rs.getString("email"), rs.getString("mobile"), rs.getString("password"));
-                        DatabaseConnection db=new DatabaseConnection(user);
-                        db.getPasswords();
-                        if(rs.getBytes("img")!=null){
-                        user.addDp(convertToImage(rs.getBytes("img")));
-                        }
-                        this.dispose();
-                        AllPassword window = new AllPassword(user);
-                        window.setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Password  is incorrect!");
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "User name  not found!");
-
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(LogInWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LogInWindow.class.getName()).log(Level.SEVERE, null, ex);
+        
+        DatabaseConnection dp=new DatabaseConnection();
+        User user=dp.authenticate(userField.getText(), passwordField.getText());
+        if(user!=null)
+        {
+            this.dispose();
+            AllPassword window = new AllPassword(user);
+            window.setVisible(true);
         }
 
     }//GEN-LAST:event_logInBtnActionPerformed

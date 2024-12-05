@@ -37,19 +37,6 @@ public class CreateNew extends javax.swing.JFrame {
         icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());
     }
-    public Connection getConnection() {
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/passwordmanager", "root", "rsr554433");
-//            JOptionPane.showMessageDialog(null, "ok");
-            return con;
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateNew.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "!!!!!!ok");
-            return null;
-        }
-
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
