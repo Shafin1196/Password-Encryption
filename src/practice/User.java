@@ -2,7 +2,7 @@
 package practice;
 import javax.swing.ImageIcon;
 import java.util.*;
-public class User extends Encryption {
+public class User {
     private String name,password,mobile,userName,email;
     private ImageIcon dp;
     private ArrayList<PasswordAndWeb>passwordList=new ArrayList<>();
@@ -56,7 +56,7 @@ public class User extends Encryption {
     }
     public PasswordAndWeb getData()
     {
-        return passwordList.get(passwordList.size()-1);
+        return passwordList.getLast();
     }
     
     public ArrayList<PasswordAndWeb> getList()
@@ -86,9 +86,5 @@ public class User extends Encryption {
         User user=new User("sds","dsada","dasdsa","dsad","dsadsa");
         System.out.println(user.getPass());
     }
-
-//    Object getData() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     
 }

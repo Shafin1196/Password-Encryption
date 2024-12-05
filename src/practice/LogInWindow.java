@@ -46,20 +46,7 @@ public class LogInWindow extends javax.swing.JFrame {
         icon=new ImageIcon(getClass().getResource("/practiceIcons/mainIcon.png"));
         this.setIconImage(icon.getImage());
     }
-    public Connection getConnection() {
-        Connection con = null;
-        try {
-             con = DriverManager.getConnection("jdbc:mysql://mysql-11b6728a-passwordmanager1.h.aivencloud.com:25436/defaultdb", "avnadmin", "AVNS_r5R2f51t7_58ELGz1_8");
-            //            JOptionPane.showMessageDialog(null, "not connected");
-            return con;
-        } catch (SQLException ex) {
-            Logger.getLogger(LogInWindow.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(null, "not connected");
-            return null;
-
-        }
-
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
