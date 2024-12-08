@@ -100,7 +100,7 @@ public class DatabaseConnection {
             ps = con.prepareStatement("select * from " + user.getUserHandel());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                PasswordAndWeb data = new PasswordAndWeb(rs.getString("password"), rs.getString("website"));
+                PasswordAndWeb data = new PasswordAndWeb(rs.getString("password"), rs.getString("website"),rs.getString("userHandel"));
                 user.addPassToList(data);
             }
 
@@ -113,9 +113,10 @@ public class DatabaseConnection {
     public void addPasswordToDb() {
         Connection con = getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("insert into " + user.getUserHandel() + "(website,password) values(?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into " + user.getUserHandel() + "(website,password,userHandel) values(?,?,?)");
             ps.setString(1, user.getData().getWeb());
             ps.setString(2, user.getData().getPass());
+            ps.setString(3, user.getData().getHandel());
             ps.executeUpdate();
             ps.close();
             con.close();
@@ -151,7 +152,7 @@ public class DatabaseConnection {
                     ps.setString(4, user.getEmail());
                     ps.setString(5, user.getMobile());
                     ps.executeUpdate();
-                    ps = con.prepareStatement("create table " + user.getUserHandel() + "(id INT AUTO_INCREMENT PRIMARY KEY,website varchar(100),password varchar(100))");
+                    ps = con.prepareStatement("create table " + user.getUserHandel() + "(id INT AUTO_INCREMENT PRIMARY KEY,website varchar(100),password varchar(1000),userHandel varchar(100))");
                     ps.executeUpdate();
                     ps.close();
                     con.close();

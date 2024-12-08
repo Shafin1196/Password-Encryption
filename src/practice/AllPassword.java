@@ -1,8 +1,13 @@
 package practice;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +17,7 @@ public class AllPassword extends javax.swing.JFrame {
     /**
      * Creates new form AllPassword
      */
+    JPanel panel;
     private User user;
     private ImageIcon icon;
 
@@ -40,23 +46,109 @@ public class AllPassword extends javax.swing.JFrame {
         this.setIconImage(icon.getImage());
     }
 
+    public void refreshPanel() {
+        JPanel panel = (JPanel) jScrollPane1.getViewport().getView(); // Get the current panel in JScrollPane
+        panel.removeAll(); // Remove all existing components
+
+        // Add updated components
+        ArrayList<PasswordAndWeb> list = user.getList();
+        int y = 10;
+        for (PasswordAndWeb data : list) {
+            JLabel website = new JLabel(data.getWeb());
+            website.setBounds(15, y, 180, 25);
+            panel.add(website);
+
+            JLabel handel = new JLabel(data.getHandel());
+            handel.setBounds(200, y, 180, 25);
+            panel.add(handel);
+
+            JLabel pass = new JLabel(data.getPass());
+            pass.setBounds(390, y, 180, 25);
+            panel.add(pass);
+
+            JButton actionButton = new JButton("Decrypt");
+            actionButton.setBounds(550, y, 75, 25);
+            actionButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            actionButton.setForeground(new java.awt.Color(0, 102, 204));
+            actionButton.setFocusPainted(false);
+            actionButton.addActionListener(e -> {
+                if (actionButton.getText().equals("Decrypt")) {
+                    actionButton.setText("Encrypt");
+                } else {
+                    actionButton.setText("Decrypt");
+                }
+            });
+            panel.add(actionButton);
+
+            y += 30;
+        }
+
+        // Update the panel size
+        panel.setPreferredSize(new Dimension(660, y));
+
+        // Refresh and repaint
+        panel.revalidate(); // Recalculates layout
+        panel.repaint();    // Repaints the panel
+    }
+
     public void initData() {
 
-        String[] column = {"Website name", "Passwords"};
-        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
-        JTable table = new JTable(tableModel);
-        for (PasswordAndWeb data : user.getList()) {
-            String website, password;
-            website = data.getWeb();
-            password = data.getPass();
-            tableModel.addRow(new Object[]{website, password});
+        ArrayList<PasswordAndWeb> list = user.getList();
+        panel = new JPanel();
+        panel.setLayout(null); // Using absolute positioning
+        panel.setBackground(Color.WHITE);
+        int y = 10;
+        for (PasswordAndWeb data : list) {
+            JLabel website = new JLabel(data.getWeb());
+            website.setBounds(15, y, 180, 25);
+
+            website.setOpaque(false);
+            website.setBackground(new Color(0, 0, 0, 0));
+            website.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            website.setForeground(new java.awt.Color(153, 153, 153));
+
+            JLabel handel = new JLabel(data.getHandel());
+            handel.setOpaque(false);
+            handel.setBounds(200, y, 180, 25);
+            handel.setBackground(new Color(0, 0, 0, 0));
+            handel.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            handel.setForeground(new java.awt.Color(153, 153, 153));
+
+            JLabel pass = new JLabel(data.getPass());
+            pass.setOpaque(false);
+            pass.setBounds(390, y, 180, 25);
+            pass.setBackground(new Color(0, 0, 0, 0));
+            pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            pass.setForeground(new java.awt.Color(153, 153, 153));
+
+            JButton actionButton = new JButton("Decrypt");
+            actionButton.setBounds(550, y, 75, 25);
+            actionButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            actionButton.setForeground(new java.awt.Color(0, 102, 204));
+            actionButton.setFocusPainted(false);
+            // Add action listener to button
+            actionButton.addActionListener(e -> {
+                System.out.println("Action for: " + data.getWeb());
+                System.out.println(actionButton.getText());
+                if (actionButton.getText().equals("Decrypt")) {
+                    actionButton.setText("Encrypt");
+                } else {
+                    actionButton.setText("Decrypt");
+
+                }
+                // Add the desired functionality here
+            });
+
+            panel.repaint();
+            panel.add(website);
+            panel.add(handel);
+            panel.add(pass);
+            panel.add(actionButton);
+            y += 25;
+
         }
-        JScrollPane sp = new JScrollPane(table);
-        getContentPane().setLayout(new java.awt.BorderLayout());
-        getContentPane().add(sp, java.awt.BorderLayout.CENTER);
-        pack();
-        this.revalidate();
-        this.repaint();
+        panel.setPreferredSize(new Dimension(660, y));
+        jScrollPane1.setViewportView(panel);
 
     }
 
@@ -69,6 +161,12 @@ public class AllPassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         ProfileMenu = new javax.swing.JMenu();
         profileMenuBtn = new javax.swing.JMenuItem();
@@ -78,6 +176,59 @@ public class AllPassword extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel1.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jLabel1.setText("Website");
+
+        jLabel2.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jLabel2.setText("User Handel");
+
+        jLabel3.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jLabel3.setText("Password");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addGap(119, 119, 119)
+                .addComponent(jLabel2)
+                .addGap(106, 106, 106)
+                .addComponent(jLabel3)
+                .addContainerGap(233, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+        );
 
         jMenuBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -132,11 +283,11 @@ public class AllPassword extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -149,7 +300,7 @@ public class AllPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_profileMenuBtnActionPerformed
 
     private void addPassMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassMenuActionPerformed
-        AddPassword addWindow = new AddPassword(user);
+        AddPassword addWindow = new AddPassword(user, jScrollPane1);
         addWindow.setVisible(true);
 //        initData();
     }//GEN-LAST:event_addPassMenuActionPerformed
@@ -198,7 +349,13 @@ public class AllPassword extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ProfileMenu;
     private javax.swing.JMenuItem addPassMenu;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logOutMenu;
     private javax.swing.JMenuItem profileMenuBtn;
     private javax.swing.JMenuItem seeAllPassMenu;

@@ -7,8 +7,12 @@ package practice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -21,26 +25,49 @@ public class AddPassword extends javax.swing.JFrame {
      */
     private User user;
     private ImageIcon icon;
+    private JScrollPane jScrollPane1;
+
     public AddPassword(User user) {
         setResizable(false);
-        this.user=user;
+        this.user = user;
+        setIcon();
+        setLocations();
+        setTitle("Add password");
+        initComponents();
+        jScrollPane1 = null;
+    }
+
+    public AddPassword(User user, JScrollPane sp) {
+        setResizable(false);
+        this.user = user;
+        setIcon();
+        setLocations();
+        setTitle("Add password");
+        initComponents();
+        this.jScrollPane1 = sp;
+
+    }
+
+    public AddPassword() {
         setIcon();
         setLocations();
         setTitle("Add password");
         initComponents();
     }
-    public void setIcon(){
-        icon=new ImageIcon(getClass().getResource("/practiceIcons/addPassword.png"));
+
+    public void setIcon() {
+        icon = new ImageIcon(getClass().getResource("/practiceIcons/addPassword.png"));
         this.setIconImage(icon.getImage());
     }
-    public void setLocations()
-    {
+
+    public void setLocations() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 379)/2 ;
-        int y = (screenSize.height - 240)/2;
+        int x = (screenSize.width - 379) / 2;
+        int y = (screenSize.height - 240) / 2;
         setLocation(x, y);
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +81,7 @@ public class AddPassword extends javax.swing.JFrame {
         websiteName = new javax.swing.JTextField();
         addPass = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
+        userName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,6 +115,18 @@ public class AddPassword extends javax.swing.JFrame {
             }
         });
 
+        userName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        userName.setForeground(new java.awt.Color(153, 153, 153));
+        userName.setText("User name");
+        userName.setToolTipText("");
+        userName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        userName.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        userName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userNameMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,34 +134,35 @@ public class AddPassword extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(addPass))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(userName)
                             .addComponent(websiteName, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                            .addComponent(password))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                            .addComponent(password)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(addPass)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(websiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(28, 28, 28)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(addPass, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,6 +171,50 @@ public class AddPassword extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public void refreshPanel() {
+        JPanel panel = (JPanel) jScrollPane1.getViewport().getView(); // Get the current panel in JScrollPane
+        panel.removeAll(); // Remove all existing components
+
+        // Add updated components
+        ArrayList<PasswordAndWeb> list = user.getList();
+        int y = 10;
+        for (PasswordAndWeb data : list) {
+            JLabel website = new JLabel(data.getWeb());
+            website.setBounds(15, y, 180, 25);
+            panel.add(website);
+
+            JLabel handel = new JLabel(data.getHandel());
+            handel.setBounds(200, y, 180, 25);
+            panel.add(handel);
+
+            JLabel pass = new JLabel(data.getPass());
+            pass.setBounds(390, y, 180, 25);
+            panel.add(pass);
+
+            JButton actionButton = new JButton("Decrypt");
+            actionButton.setBounds(550, y, 75, 25);
+            actionButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            actionButton.setForeground(new java.awt.Color(0, 102, 204));
+            actionButton.setFocusPainted(false);
+            actionButton.addActionListener(e -> {
+                if (actionButton.getText().equals("Decrypt")) {
+                    actionButton.setText("Encrypt");
+                } else {
+                    actionButton.setText("Decrypt");
+                }
+            });
+            panel.add(actionButton);
+
+            y += 30;
+        }
+
+        // Update the panel size
+        panel.setPreferredSize(new Dimension(660, y));
+
+        // Refresh and repaint
+        panel.revalidate(); // Recalculates layout
+        panel.repaint();    // Repaints the panel
+    }
 
     private void websiteNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_websiteNameMouseClicked
         JLabel website = new JLabel("Website name");
@@ -148,7 +233,7 @@ public class AddPassword extends javax.swing.JFrame {
 
     private void passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordMouseClicked
         JLabel pass = new JLabel("Password");
-        pass.setBounds(35, 98, 180, 25);
+        pass.setBounds(35, 88, 180, 25);
         pass.setOpaque(false);
         pass.setBackground(new Color(0, 0, 0, 0));
         pass.setFont(new java.awt.Font("Segoe UI", 1, 18));
@@ -161,13 +246,32 @@ public class AddPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordMouseClicked
 
     private void addPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassActionPerformed
-        
-        PasswordAndWeb data=new PasswordAndWeb(password.getText(),websiteName.getText());
+
+        PasswordAndWeb data = new PasswordAndWeb(password.getText(), websiteName.getText(), userName.getText());
         user.addPassToList(data);
-        DatabaseConnection db=new DatabaseConnection(user);
+        DatabaseConnection db = new DatabaseConnection(user);
         db.addPasswordToDb();
+        if (jScrollPane1 != null) {
+            refreshPanel();
+        }
+
         this.dispose();
     }//GEN-LAST:event_addPassActionPerformed
+
+    private void userNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMouseClicked
+        // TODO add your handling code here:
+        JLabel userNames = new JLabel("User name");
+        userNames.setBounds(35, 164, 180, 25);
+        userNames.setOpaque(false);
+        userNames.setBackground(new Color(0, 0, 0, 0));
+        userNames.setFont(new java.awt.Font("Segoe UI", 1, 18));
+        userNames.setForeground(new java.awt.Color(153, 153, 153));
+        if (userName.getText().equals("User name")) {
+            userName.setText("");
+            jPanel1.repaint();
+        }
+        jPanel1.add(userNames);
+    }//GEN-LAST:event_userNameMouseClicked
 
     /**
      * @param args the command line arguments
@@ -208,6 +312,7 @@ public class AddPassword extends javax.swing.JFrame {
     private javax.swing.JButton addPass;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField password;
+    private javax.swing.JTextField userName;
     private javax.swing.JTextField websiteName;
     // End of variables declaration//GEN-END:variables
 }

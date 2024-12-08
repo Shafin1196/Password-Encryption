@@ -56,7 +56,7 @@ public class User {
     }
     public PasswordAndWeb getData()
     {
-        return passwordList.getLast();
+        return passwordList.get(passwordList.size() - 1);
     }
     
     public ArrayList<PasswordAndWeb> getList()
