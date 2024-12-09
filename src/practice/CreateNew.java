@@ -268,7 +268,7 @@ public class CreateNew extends javax.swing.JFrame {
     }//GEN-LAST:event_logInBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        
+
         if (checkFieldNull()) {
             JOptionPane.showMessageDialog(null, "One or more fields are empty");
         } else {

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -56,14 +58,26 @@ public class AllPassword extends javax.swing.JFrame {
         for (PasswordAndWeb data : list) {
             JLabel website = new JLabel(data.getWeb());
             website.setBounds(15, y, 180, 25);
+            website.setOpaque(false);
+            website.setBackground(new Color(0, 0, 0, 0));
+            website.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            website.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(website);
 
             JLabel handel = new JLabel(data.getHandel());
-            handel.setBounds(200, y, 180, 25);
+            handel.setOpaque(false);
+            handel.setBounds(200, y, 150, 25);
+            handel.setBackground(new Color(0, 0, 0, 0));
+            handel.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            handel.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(handel);
 
             JLabel pass = new JLabel(data.getPass());
-            pass.setBounds(390, y, 180, 25);
+            pass.setOpaque(false);
+            pass.setBounds(390, y, 150, 25);
+            pass.setBackground(new Color(0, 0, 0, 0));
+            pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            pass.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(pass);
 
             JButton actionButton = new JButton("Decrypt");
@@ -72,11 +86,29 @@ public class AllPassword extends javax.swing.JFrame {
             actionButton.setForeground(new java.awt.Color(0, 102, 204));
             actionButton.setFocusPainted(false);
             actionButton.addActionListener(e -> {
+                
                 if (actionButton.getText().equals("Decrypt")) {
                     actionButton.setText("Encrypt");
+                    String s=null;
+                    try {
+                        s=user.en.decrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     actionButton.setText("Decrypt");
+                    String s=null;
+                    try {
+                        s=user.en.encrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+
                 }
+                // Add the desired functionality here
             });
             panel.add(actionButton);
 
@@ -98,6 +130,18 @@ public class AllPassword extends javax.swing.JFrame {
         panel.setLayout(null); // Using absolute positioning
         panel.setBackground(Color.WHITE);
         int y = 10;
+        if (list.isEmpty())
+        {
+            JLabel noData = new JLabel("No data to show! add new Credentials");
+            noData.setOpaque(false);
+            noData.setBounds(90, 100, 500, 25);
+            noData.setBackground(new Color(0, 0, 0, 0));
+            noData.setFont(new java.awt.Font("Segoe UI", 1, 24));
+            noData.setForeground(new java.awt.Color(153, 153, 153));
+            panel.add(noData);
+            
+        }
+        else{
         for (PasswordAndWeb data : list) {
             JLabel website = new JLabel(data.getWeb());
             website.setBounds(15, y, 180, 25);
@@ -109,14 +153,14 @@ public class AllPassword extends javax.swing.JFrame {
 
             JLabel handel = new JLabel(data.getHandel());
             handel.setOpaque(false);
-            handel.setBounds(200, y, 180, 25);
+            handel.setBounds(200, y, 150, 25);
             handel.setBackground(new Color(0, 0, 0, 0));
             handel.setFont(new java.awt.Font("Segoe UI", 1, 12));
             handel.setForeground(new java.awt.Color(153, 153, 153));
 
             JLabel pass = new JLabel(data.getPass());
             pass.setOpaque(false);
-            pass.setBounds(390, y, 180, 25);
+            pass.setBounds(390, y, 150, 25);
             pass.setBackground(new Color(0, 0, 0, 0));
             pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
             pass.setForeground(new java.awt.Color(153, 153, 153));
@@ -128,12 +172,26 @@ public class AllPassword extends javax.swing.JFrame {
             actionButton.setFocusPainted(false);
             // Add action listener to button
             actionButton.addActionListener(e -> {
-                System.out.println("Action for: " + data.getWeb());
-                System.out.println(actionButton.getText());
+                
                 if (actionButton.getText().equals("Decrypt")) {
                     actionButton.setText("Encrypt");
+                    String s=null;
+                    try {
+                        s=user.en.decrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     actionButton.setText("Decrypt");
+                    String s=null;
+                    try {
+                        s=user.en.encrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
 
                 }
                 // Add the desired functionality here
@@ -146,6 +204,7 @@ public class AllPassword extends javax.swing.JFrame {
             panel.add(actionButton);
             y += 25;
 
+        }
         }
         panel.setPreferredSize(new Dimension(660, y));
         jScrollPane1.setViewportView(panel);
