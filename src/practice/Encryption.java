@@ -11,7 +11,7 @@ public class Encryption {
     private PrivateKey privateKey;
     private PublicKey publicKey;
 
-    // Valid Base64-encoded public and private keys
+    
     private static final String PUBLIC_KEY_STRING = 
         "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCG+hkvhXCuCN8x6ppqva8XdEVzUEj217kMSCebV+kpl9xbzNjrFNvIPDECa3o9pkyY8zGHsP4ivfpkQVuP/nhUv8gDMEWudwtqScyPHAMCqgwKnAAE8tC7arXHyLOfgTiWhMONOrvzSfWwCsytuhpIM8zWua4+eO/Ug81hbQpsUwIDAQAB";
     private static final String PRIVATE_KEY_STRING = 
@@ -28,7 +28,7 @@ public class Encryption {
             privateKey = keyFactory.generatePrivate(keySpecPrivate);
 
         } catch (Exception e) {
-            e.printStackTrace(); // Properly log errors instead of ignoring them
+            e.printStackTrace(); 
         }
     }
 
@@ -46,6 +46,12 @@ public class Encryption {
         return new String(decryptedBytes);
     }
 
+    public String hash(String data, String algorithm)throws NoSuchAlgorithmException{
+        MessageDigest digest= MessageDigest.getInstance(algorithm);
+        byte[] hashBytes=digest.digest(data.getBytes());
+        return encode(hashBytes);
+        
+    }
     private static String encode(byte[] data) {
         return Base64.getEncoder().encodeToString(data);
     }
@@ -65,10 +71,12 @@ public class Encryption {
 
             System.out.println("Encrypted: " + encryptedPassword);
             System.out.println("Decrypted: " + decryptedPassword);
+            
+            String sha256Hash= encryption.hash(password, "SHA-256");
+            System.out.println("SHA-256 Hash: "+sha256Hash);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
-
 
