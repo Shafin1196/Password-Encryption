@@ -32,12 +32,12 @@ public class AllPassword extends javax.swing.JFrame {
         initComponents();
         setTitle("All passwords");
         initData();
-        setSize(675, 500);
+        setSize(720, 500);
     }
 
     public void setLocations() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - 675) / 2;
+        int x = (screenSize.width - 720) / 2;
         int y = (screenSize.height - 500) / 2;
         setLocation(x, y);
 
@@ -116,7 +116,7 @@ public class AllPassword extends javax.swing.JFrame {
         }
 
         // Update the panel size
-        panel.setPreferredSize(new Dimension(660, y));
+        panel.setPreferredSize(new Dimension(700, y));
 
         // Refresh and repaint
         panel.revalidate(); // Recalculates layout
@@ -164,12 +164,29 @@ public class AllPassword extends javax.swing.JFrame {
             pass.setBackground(new Color(0, 0, 0, 0));
             pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
             pass.setForeground(new java.awt.Color(153, 153, 153));
+            
+            String sta = null;
+                try {
+                    sta = user.en.decrypt(data.getPass());
+                    sta=user.status(sta);
+                    JLabel status = new JLabel(sta);
+                    status.setOpaque(false);
+                    status.setBounds(650, y, 150, 25);
+                    status.setBackground(new Color(0, 0, 0, 0));
+                    status.setFont(new java.awt.Font("Segoe UI", 1, 12));
+                    status.setForeground(new java.awt.Color(255,0,0));
+                    panel.add(status);
+                } catch (Exception ex) {
+                    Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             JButton actionButton = new JButton("Decrypt");
             actionButton.setBounds(550, y, 75, 25);
             actionButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
             actionButton.setForeground(new java.awt.Color(0, 102, 204));
             actionButton.setFocusPainted(false);
+            
+            
             // Add action listener to button
             actionButton.addActionListener(e -> {
                 
@@ -206,7 +223,7 @@ public class AllPassword extends javax.swing.JFrame {
 
         }
         }
-        panel.setPreferredSize(new Dimension(660, y));
+        panel.setPreferredSize(new Dimension(700, y));
         jScrollPane1.setViewportView(panel);
 
     }
@@ -225,6 +242,7 @@ public class AllPassword extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         ProfileMenu = new javax.swing.JMenu();
@@ -250,6 +268,9 @@ public class AllPassword extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         jLabel3.setText("Password");
 
+        jLabel4.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jLabel4.setText("Status");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -261,7 +282,9 @@ public class AllPassword extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(106, 106, 106)
                 .addComponent(jLabel3)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +293,8 @@ public class AllPassword extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -411,6 +435,7 @@ public class AllPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
