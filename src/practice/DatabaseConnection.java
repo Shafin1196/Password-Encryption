@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -226,6 +227,12 @@ public class DatabaseConnection {
             try {
                 if (rs.next()) {
                     String dbPass = rs.getString("password");
+                    Encryption en=new Encryption();
+                    try {
+                        pass=en.hash(pass);
+                    } catch (Exception ex) {
+                        Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     if (dbPass.equals(pass)) {
                         User user = new User(rs.getString("fullName"),rs.getString("userName"), rs.getString("email"), rs.getString("mobile"), rs.getString("password"));
                         DatabaseConnection db=new DatabaseConnection(user);

@@ -1,11 +1,15 @@
 
 package practice;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class User {
     private String name,password,mobile,userName,email;
     private ImageIcon dp;
     private ArrayList<PasswordAndWeb>passwordList=new ArrayList<>();
+    public Encryption en=new Encryption();
     User()
     {
         
@@ -15,7 +19,11 @@ public class User {
         this.name=name;
         this.email=email;
         this.mobile=mobile;
-        this.password=password;
+        try {
+            this.password=en.hash(password);
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.userName=userName;
         
     }
