@@ -204,6 +204,21 @@ public void refreshPanel() {
             pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
             pass.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(pass);
+            
+             String sta = null;
+                try {
+                    sta = user.en.decrypt(data.getPass());
+                    sta=user.status(sta);
+                    JLabel status = new JLabel(sta);
+                    status.setOpaque(false);
+                    status.setBounds(650, y, 150, 25);
+                    status.setBackground(new Color(0, 0, 0, 0));
+                    status.setFont(new java.awt.Font("Segoe UI", 1, 12));
+                    status.setForeground(new java.awt.Color(255,0,0));
+                    panel.add(status);
+                } catch (Exception ex) {
+                    Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             JButton actionButton = new JButton("Decrypt");
             actionButton.setBounds(550, y, 75, 25);
@@ -241,7 +256,7 @@ public void refreshPanel() {
         }
 
         // Update the panel size
-        panel.setPreferredSize(new Dimension(660, y));
+        panel.setPreferredSize(new Dimension(700, y));
 
         // Refresh and repaint
         panel.revalidate(); // Recalculates layout
