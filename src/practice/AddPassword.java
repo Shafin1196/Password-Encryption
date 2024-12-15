@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -117,7 +119,7 @@ public class AddPassword extends javax.swing.JFrame {
 
         userName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         userName.setForeground(new java.awt.Color(153, 153, 153));
-        userName.setText("User name");
+        userName.setText("User name/User ID");
         userName.setToolTipText("");
         userName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         userName.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
@@ -181,27 +183,72 @@ public void refreshPanel() {
         for (PasswordAndWeb data : list) {
             JLabel website = new JLabel(data.getWeb());
             website.setBounds(15, y, 180, 25);
+            website.setOpaque(false);
+            website.setBackground(new Color(0, 0, 0, 0));
+            website.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            website.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(website);
 
             JLabel handel = new JLabel(data.getHandel());
-            handel.setBounds(200, y, 180, 25);
+            handel.setOpaque(false);
+            handel.setBounds(200, y, 150, 25);
+            handel.setBackground(new Color(0, 0, 0, 0));
+            handel.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            handel.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(handel);
 
             JLabel pass = new JLabel(data.getPass());
-            pass.setBounds(390, y, 180, 25);
+            pass.setOpaque(false);
+            pass.setBounds(390, y, 150, 25);
+            pass.setBackground(new Color(0, 0, 0, 0));
+            pass.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            pass.setForeground(new java.awt.Color(153, 153, 153));
             panel.add(pass);
+            
+             String sta = null;
+                try {
+                    sta = user.en.decrypt(data.getPass());
+                    sta=user.status(sta);
+                    JLabel status = new JLabel(sta);
+                    status.setOpaque(false);
+                    status.setBounds(650, y, 150, 25);
+                    status.setBackground(new Color(0, 0, 0, 0));
+                    status.setFont(new java.awt.Font("Segoe UI", 1, 12));
+                    status.setForeground(new java.awt.Color(255,0,0));
+                    panel.add(status);
+                } catch (Exception ex) {
+                    Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             JButton actionButton = new JButton("Decrypt");
             actionButton.setBounds(550, y, 75, 25);
             actionButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
             actionButton.setForeground(new java.awt.Color(0, 102, 204));
             actionButton.setFocusPainted(false);
-            actionButton.addActionListener(e -> {
+           actionButton.addActionListener(e -> {
+                
                 if (actionButton.getText().equals("Decrypt")) {
                     actionButton.setText("Encrypt");
+                    String s=null;
+                    try {
+                        s=user.en.decrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     actionButton.setText("Decrypt");
+                    String s=null;
+                    try {
+                        s=user.en.encrypt(data.getPass());
+                        pass.setText(s);
+                    } catch (Exception ex) {
+                        Logger.getLogger(AllPassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+
                 }
+                // Add the desired functionality here
             });
             panel.add(actionButton);
 
@@ -209,7 +256,7 @@ public void refreshPanel() {
         }
 
         // Update the panel size
-        panel.setPreferredSize(new Dimension(660, y));
+        panel.setPreferredSize(new Dimension(700, y));
 
         // Refresh and repaint
         panel.revalidate(); // Recalculates layout
@@ -246,8 +293,13 @@ public void refreshPanel() {
     }//GEN-LAST:event_passwordMouseClicked
 
     private void addPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPassActionPerformed
-
-        PasswordAndWeb data = new PasswordAndWeb(password.getText(), websiteName.getText(), userName.getText());
+        String pass=null;
+        try {
+            pass=user.en.encrypt(password.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(AddPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PasswordAndWeb data = new PasswordAndWeb(pass, websiteName.getText(), userName.getText());
         user.addPassToList(data);
         DatabaseConnection db = new DatabaseConnection(user);
         db.addPasswordToDb();
@@ -260,13 +312,13 @@ public void refreshPanel() {
 
     private void userNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMouseClicked
         // TODO add your handling code here:
-        JLabel userNames = new JLabel("User name");
+        JLabel userNames = new JLabel("User name/User ID");
         userNames.setBounds(35, 164, 180, 25);
         userNames.setOpaque(false);
         userNames.setBackground(new Color(0, 0, 0, 0));
         userNames.setFont(new java.awt.Font("Segoe UI", 1, 18));
         userNames.setForeground(new java.awt.Color(153, 153, 153));
-        if (userName.getText().equals("User name")) {
+        if (userName.getText().equals("User name/User ID")) {
             userName.setText("");
             jPanel1.repaint();
         }

@@ -3,6 +3,7 @@ package practice;
 
 public class PasswordAndWeb {
     private String password,webSite,handel;
+    public Encryption en=new Encryption();
     PasswordAndWeb(String password,String webSite,String handel)
     {
         this.password=password;
@@ -17,6 +18,9 @@ public class PasswordAndWeb {
     }
     public String getHandel(){
         return handel;
+    }
+    public void setPass(String pass){
+        this.password=pass;
     }
     
 }
